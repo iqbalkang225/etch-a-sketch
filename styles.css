@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  position: relative;
+  display: grid;
+  justify-items: center;
+}
+
+.toolbox-container {
+  width: 200px;
+  height: 30px;
+  border-radius: 100px;
+  background-color: hsl(0, 0%, 15%);
+  position: absolute;
+  margin-top: 10px;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  /* place-items: center; */
+  /* align-items: end; */
+}
+
+.grid-container {
+  background-color: #000;
+  height: 50vh;
+  width: 50vw;
+  overflow: hidden;
+
+  display: grid;
+  /* grid-template-columns: repeat(128, 10px);
+  grid-template-rows: repeat(50, 10px); */
+}
+
+.btn svg {
+  fill: white;
+  height: 20px;
+  width: 20px;
+  display: block;
+  pointer-events: none;
+}
+
+.brushes-container {
+  background-color: #fafafa;
+  width: 80%;
+  height: 120px;
+  position: absolute;
+  top: 120%;
+  border-radius: 5px;
+  display: none;
+  place-items: end;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.brushes-container svg {
+  transform: rotate(135.03deg);
+  cursor: pointer;
+  transition: all 0.05s linear;
+}
+
+.brushes-container svg path {
+  pointer-events: none;
+}
+
+.brushes-container svg:hover {
+  transform: translateY(-3px) rotate(135.03deg);
+}
+
+.brush-selected {
+  transform: translateY(5px);
+}
+
+.brushes-text {
+  grid-column: 1 /-1;
+  grid-row: 1 / 2;
+  align-self: center;
+  justify-self: center;
+}
+
+.brush-close {
+  grid-column: 3 / -1;
+  grid-row: 1 / 2;
+  align-self: flex-start;
+  margin: 5px 8px 0 0;
+}
+
+.close {
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.small-brush {
+  width: 40px;
+  height: 40px;
+}
+
+.medium-brush {
+  width: 48px;
+  height: 48px;
+}
+
+.large-brush {
+  width: 56px;
+  height: 56px;
+}
+
+.color-picker {
+  background-color: brown;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+
+.rainbow {
+  height: 30px;
+  width: 30px;
+}

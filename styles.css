@@ -17,6 +17,34 @@ a {
   text-decoration: none;
 }
 
+.btn svg {
+  fill: white;
+  height: 18px;
+  width: 18px;
+  display: block;
+  pointer-events: none;
+  transition: all 0.1s linear;
+}
+
+.btn:hover svg {
+  transform: scale(1.1);
+}
+
+.close {
+  font-size: 12px;
+  cursor: pointer;
+  grid-column: -2 / -1;
+  grid-row: 1 / 2;
+  justify-self: end;
+  align-self: start;
+  margin: 5px 8px 0 0;
+  color: #777;
+}
+
+.close:hover {
+  color: #222;
+}
+
 .container {
   position: relative;
   display: grid;
@@ -44,24 +72,6 @@ a {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-}
-
-.btn svg {
-  fill: white;
-  height: 18px;
-  width: 18px;
-  display: block;
-  pointer-events: none;
-  transition: all 0.1s linear;
-}
-
-.btn:hover svg {
-  transform: scale(1.1);
-}
-
-.rainbow svg {
-  height: 22px;
-  width: 22px;
 }
 
 .brushes-container {
@@ -102,32 +112,23 @@ a {
   justify-self: center;
 }
 
-.close {
-  font-size: 12px;
-  cursor: pointer;
-  grid-column: -2 / -1;
-  grid-row: 1 / 2;
-  justify-self: end;
-  align-self: start;
-  margin: 5px 8px 0 0;
-  color: #777;
-}
-
-.close:hover {
-  color: #222;
-}
-
 .eraser-container {
   background-color: #fafafa;
   width: 80%;
-  height: 120px;
   position: absolute;
   top: 120%;
   border-radius: 5px;
   display: none;
   place-items: center;
-  grid-template-rows: 88px 1fr;
+  grid-template-rows: 30px 88px 1fr;
   grid-template-columns: 70px 1fr;
+  padding: 5px 0 10px;
+}
+
+.eraser-text {
+  grid-column: 1/-1;
+  grid-row: 1/2;
+  align-self: center;
 }
 
 .eraser-size {
@@ -137,7 +138,7 @@ a {
   border-radius: 50%;
   transition: all 0.1s linear;
   grid-column: 1/-1;
-  grid-row: 1/2;
+  /* grid-row: 1/2; */
 }
 
 .slider {
@@ -189,4 +190,28 @@ input[type="color"]::-webkit-color-swatch {
   border-radius: 50%;
   outline: none;
   cursor: pointer;
+}
+
+.rainbow {
+  position: relative;
+}
+
+.rainbow svg {
+  height: 22px;
+  width: 22px;
+}
+
+.rainbow-text {
+  transition: all 0.2s;
+  position: absolute;
+  font-size: 10px;
+  color: #fff;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -320%;
+  opacity: 0;
+}
+
+.rainbow:hover .rainbow-text {
+  opacity: 1;
 }

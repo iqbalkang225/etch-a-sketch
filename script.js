@@ -46,27 +46,6 @@ function selectBrush(e) {
   else return createGrid(largeBrush);
 }
 
-// Function to start painting when clicked
-function paint(choice) {
-  gridContainer.addEventListener("mouseover", (e) => {
-    if (e.target.classList.contains("grid-cell") && clicked) {
-      e.target.style.backgroundColor = colorSelector(choice);
-    }
-  });
-}
-paint(document.querySelector(".color").value);
-
-// Function to output color
-function colorSelector(color) {
-  if (color === "rainbow")
-    return `rgb(${generateRandomColor()},${generateRandomColor()},${generateRandomColor()})`;
-  else return document.querySelector(".color").value;
-}
-
-function generateRandomColor() {
-  return Math.trunc(Math.random() * 255 + 1);
-}
-
 // Function to reset grid
 function clearGrid() {
   const gridCells = document.querySelectorAll(".grid-cell");
@@ -93,6 +72,7 @@ innerBrushes.forEach((brush) => {
       clearGrid();
     });
     selectBrush(e);
+    paint("userchoice");
   });
 });
 
@@ -109,6 +89,28 @@ closeBtn.addEventListener("click", (e) => {
   hideMenu(e);
 });
 
+// Function to start painting when clicked
+function paint(choice) {
+  gridContainer.addEventListener("mouseover", (e) => {
+    if (e.target.classList.contains("grid-cell") && clicked) {
+      e.target.style.backgroundColor = colorSelector(choice);
+    }
+  });
+}
+paint(document.querySelector(".color").value);
+
+// Function to output color
+function colorSelector(color) {
+  if (color === "rainbow")
+    return `rgb(${generateRandomColor()},${generateRandomColor()},${generateRandomColor()})`;
+  else if (color === "black") return "black";
+  else return document.querySelector(".color").value;
+}
+
+function generateRandomColor() {
+  return Math.trunc(Math.random() * 255 + 1);
+}
+
 // Event handler for selecting tool from toolbox
 toolboxContainer.addEventListener("click", (e) => {
   let clicked = e.target.classList[1];
@@ -122,17 +124,42 @@ toolboxContainer.addEventListener("click", (e) => {
   else if (clicked === "eraser") displayMenu(e);
   else if (clicked === "clear") clearGrid();
   else if (clicked === "rainbow") paint("rainbow");
-  else paint("userColor");
+  // else paint("userchoice");
 });
 
 const slider = document.querySelector(".slider");
-const eraser = document.querySelector(".eraser-size");
-slider.addEventListener("mousemove", (e) => {
-  let eraserSize = document.querySelector(".slider").value;
-  eraser.style.width = `${eraserSize}px`;
-  eraser.style.height = `${eraserSize}px`;
-});
+slider.addEventListener("mousemove", eraserSize);
 
-// function eraser(e) {
+function eraserSize(e) {
+  const eraserEl = document.querySelector(".eraser-size");
+  let eraserSize = Number(document.querySelector(".slider").value);
+  eraserEl.style.width = `${eraserSize}px`;
+  eraserEl.style.height = `${eraserSize}px`;
+  eraser(eraserSize);
+}
 
+function eraser(size) {
+  slider.addEventListener("click", (e) => {
+    paint("black");
+    hideMenu(e);
+  });
+}
+
+// function eraser(size) {
+//   gridContainer.addEventListener("mouseover", (e) => {
+//     if (e.target.classList.contains("grid-cell") && clicked) {
+//       if (size === 50) {
+//         console.log("fdsh");
+//         e.target.style.backgroundColor = colorSelector("black");
+//         // e.target.nextElementSibling.style.backgroundColor =
+//         //   colorSelector("black");
+//       }
+//     }
+//   });
 // }
+
+let userchoice = document.querySelector(".color");
+userchoice.addEventListener("input", (e) => {
+  console.log(userchoice.value);
+  paint(userchoice.value);
+});

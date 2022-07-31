@@ -35,8 +35,8 @@ a {
 
 .grid-container {
   background-color: #000;
-  height: 50vh;
-  width: 50vw;
+  height: 90vh;
+  width: 80vw;
   overflow: hidden;
 
   display: grid;
@@ -50,6 +50,11 @@ a {
   width: 20px;
   display: block;
   pointer-events: none;
+}
+
+.rainbow svg {
+  height: 22px;
+  width: 22px;
 }
 
 .brushes-container {
@@ -172,9 +177,4 @@ input[type="color"]::-webkit-color-swatch {
   border-radius: 50%;
   outline: none;
   cursor: pointer;
-}
-
-.rainbow {
-  height: 30px;
-  width: 30px;
 }

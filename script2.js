@@ -16,34 +16,28 @@ function createGrid(brushSize = 10) {
     (containerWidth / brushSize) * (containerHeight / brushSize)
   );
   // Creating individual grid cell and appending to grid container
-  for (let i = 0; i < amount; i++) {
+  for (let i = 0; i < 1100; i++) {
     let div = document.createElement("div");
+    div.style.border = "1px solid red";
     div.setAttribute("class", "grid-cell");
     gridContainer.append(div);
   }
   // Computing number of rows and columns needed
-  gridContainer.style.gridTemplateColumns = `repeat(${Math.ceil(
-    containerWidth / brushSize
-  )}, ${brushSize}px)`;
+  gridContainer.style.gridTemplateColumns = `repeat(30,1fr)`;
 
-  gridContainer.style.gridTemplateRows = `repeat(${Math.ceil(
-    containerHeight / brushSize
-  )}, ${brushSize}px)`;
+  gridContainer.style.gridTemplateRows = `repeat(35,1fr)`;
 }
 
 createGrid();
-let brushSelected = true;
+
 // Function to select brush size
 function selectBrush(e) {
-  let smallBrush = 10;
-  let mediumBrush = 20;
-  let largeBrush = 30;
-
   let brushSize = e.target.classList.value;
+  console.log(brushSize);
   if (brushSize) hideMenu(e);
-  if (brushSize === "small-brush") createGrid(smallBrush);
-  else if (brushSize === "medium-brush") return createGrid(mediumBrush);
-  else return createGrid(largeBrush);
+  if (brushSize === "small-brush") paint("rainbow", "small-brush");
+  else if (brushSize === "medium-brush") paint("rainbow", "medium-brush");
+  else return paint("rainbow", "large-brush");
 }
 
 // Function to reset grid
@@ -69,11 +63,10 @@ innerBrushes.forEach((brush) => {
   // Clearing Grid after brush selection
   brush.addEventListener("click", (e) => {
     innerBrushes.forEach((brush) => {
-      if (brushSelected) clearGrid();
+      clearGrid();
     });
     selectBrush(e);
-    brushSelected = true;
-    paint("userchoice");
+    // paint("userchoice");
   });
 });
 
@@ -91,10 +84,15 @@ closeBtn.addEventListener("click", (e) => {
 });
 
 // Function to start painting when clicked
-function paint(choice) {
+function paint(choice, size) {
   gridContainer.addEventListener("mouseover", (e) => {
     if (e.target.classList.contains("grid-cell") && clicked) {
-      e.target.style.backgroundColor = colorSelector(choice);
+      if (size === "small-brush") {
+        e.target.style.backgroundColor = colorSelector(choice);
+      } else if (size === "medium-brush") {
+        e.target.nextElementSibling.style.backgroundColor =
+          colorSelector(choice);
+      }
     }
   });
 }
@@ -143,8 +141,6 @@ function eraser(size) {
   slider.addEventListener("click", (e) => {
     paint("black");
     hideMenu(e);
-    brushSelected = false;
-    console.log(brushSelected);
   });
 }
 

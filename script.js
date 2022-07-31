@@ -32,19 +32,6 @@ function createGrid(brushSize = 10) {
 }
 
 createGrid();
-let brushSelected = true;
-// Function to select brush size
-function selectBrush(e) {
-  let smallBrush = 10;
-  let mediumBrush = 20;
-  let largeBrush = 30;
-
-  let brushSize = e.target.classList.value;
-  if (brushSize) hideMenu(e);
-  if (brushSize === "small-brush") createGrid(smallBrush);
-  else if (brushSize === "medium-brush") return createGrid(mediumBrush);
-  else return createGrid(largeBrush);
-}
 
 // Function to reset grid
 function clearGrid() {
@@ -62,6 +49,20 @@ function hideMenu(e) {
   e.target.parentElement.style.display = "none";
 }
 
+let lastSelection = "small-brush";
+// Function to select brush size
+function selectBrush(e) {
+  let smallBrush = 10;
+  let mediumBrush = 20;
+  let largeBrush = 30;
+
+  let brushSize = e.target.classList.value;
+  if (brushSize) hideMenu(e);
+  if (brushSize === "small-brush") createGrid(smallBrush);
+  else if (brushSize === "medium-brush") return createGrid(mediumBrush);
+  else return createGrid(largeBrush);
+}
+
 // Event listener for Brush size selection, using event Delegation
 const innerBrushes = document.querySelectorAll(".brushes-container svg");
 
@@ -69,10 +70,12 @@ innerBrushes.forEach((brush) => {
   // Clearing Grid after brush selection
   brush.addEventListener("click", (e) => {
     innerBrushes.forEach((brush) => {
-      if (brushSelected) clearGrid();
+      if (lastSelection !== e.target.classList.value) {
+        clearGrid();
+        lastSelection = e.target.classList.value;
+      }
     });
     selectBrush(e);
-    brushSelected = true;
     paint("userchoice");
   });
 });
@@ -143,8 +146,6 @@ function eraser(size) {
   slider.addEventListener("click", (e) => {
     paint("black");
     hideMenu(e);
-    brushSelected = false;
-    console.log(brushSelected);
   });
 }
 

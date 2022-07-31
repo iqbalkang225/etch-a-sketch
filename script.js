@@ -8,9 +8,10 @@ const closeBtn = document.querySelector(".close");
 let containerWidth = gridContainer.clientWidth + 10;
 let containerHeight = gridContainer.clientHeight + 10;
 let clicked = false;
+let eraserVal;
 
 // Function to create Paintable Grid
-function createGrid(brushSize = 10) {
+function createGrid(brushSize = 20) {
   // Variable to compute number of grid cells needed
   let amount = Math.ceil(
     (containerWidth / brushSize) * (containerHeight / brushSize)
@@ -49,7 +50,7 @@ function hideMenu(e) {
   e.target.parentElement.style.display = "none";
 }
 
-let lastSelection = "small-brush";
+let lastSelection = "medium-brush";
 // Function to select brush size
 function selectBrush(e) {
   let smallBrush = 10;
@@ -76,7 +77,9 @@ innerBrushes.forEach((brush) => {
       }
     });
     selectBrush(e);
+    eraserVal = 10;
     paint("userchoice");
+    console.log("clicked");
   });
 });
 
@@ -101,6 +104,7 @@ function paint(choice) {
     }
   });
 }
+
 paint(document.querySelector(".color").value);
 
 // Function to output color
@@ -136,31 +140,31 @@ slider.addEventListener("mousemove", eraserSize);
 
 function eraserSize(e) {
   const eraserEl = document.querySelector(".eraser-size");
-  let eraserSize = Number(document.querySelector(".slider").value);
-  eraserEl.style.width = `${eraserSize}px`;
-  eraserEl.style.height = `${eraserSize}px`;
-  eraser(eraserSize);
+  eraserVal = Number(document.querySelector(".slider").value);
+  eraserEl.style.width = `${eraserVal}px`;
+  eraserEl.style.height = `${eraserVal}px`;
 }
 
-function eraser(size) {
-  slider.addEventListener("click", (e) => {
-    paint("black");
-    hideMenu(e);
+slider.addEventListener("mouseup", (e) => {
+  gridContainer.addEventListener("mouseover", (e) => {
+    if (e.target.classList.contains("grid-cell") && clicked) {
+      if (eraserVal === 70) {
+        e.target.previousElementSibling.style.backgroundColor =
+          colorSelector("black");
+        e.target.nextElementSibling.style.backgroundColor =
+          colorSelector("black");
+        e.target.style.backgroundColor = colorSelector("black");
+      } else if (eraserVal === 50) {
+        e.target.previousElementSibling.style.backgroundColor =
+          colorSelector("black");
+        e.target.style.backgroundColor = colorSelector("black");
+      } else {
+        e.target.style.backgroundColor = colorSelector("black");
+      }
+    }
   });
-}
-
-// function eraser(size) {
-//   gridContainer.addEventListener("mouseover", (e) => {
-//     if (e.target.classList.contains("grid-cell") && clicked) {
-//       if (size === 50) {
-//         console.log("fdsh");
-//         e.target.style.backgroundColor = colorSelector("black");
-//         // e.target.nextElementSibling.style.backgroundColor =
-//         //   colorSelector("black");
-//       }
-//     }
-//   });
-// }
+  hideMenu(e);
+});
 
 let userchoice = document.querySelector(".color");
 userchoice.addEventListener("input", (e) => {

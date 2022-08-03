@@ -132,6 +132,7 @@ a {
   bottom: 120%;
   border-radius: 5px;
   overflow: hidden;
+  z-index: 100;
 
   display: none;
   align-items: end;
@@ -176,6 +177,7 @@ a {
   grid-template-rows: 30px 88px 1fr;
   grid-template-columns: 70px 1fr;
   padding: 5px 0 10px;
+  z-index: 100;
 }
 
 .eraser-text {

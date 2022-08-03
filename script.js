@@ -101,6 +101,9 @@ function paint(choice) {
   gridContainer.addEventListener("mouseover", (e) => {
     if (e.target.classList.contains("grid-cell") && clicked) {
       e.target.style.backgroundColor = colorSelector(choice);
+      toolboxContainer.style.display = "none";
+    } else {
+      toolboxContainer.style.display = "flex";
     }
   });
 }

@@ -11,7 +11,7 @@ let clicked = false;
 let eraserVal;
 
 // Function to create Paintable Grid
-function createGrid(brushSize = 20) {
+function createGrid(brushSize) {
   // Variable to compute number of grid cells needed
   let amount = Math.ceil(
     (containerWidth / brushSize) * (containerHeight / brushSize)
@@ -32,12 +32,12 @@ function createGrid(brushSize = 20) {
   )}, ${brushSize}px)`;
 }
 
-createGrid();
+createGrid(10);
 
 // Function to reset grid
 function clearGrid() {
   const gridCells = document.querySelectorAll(".grid-cell");
-  gridCells.forEach((cell) => (cell.style.backgroundColor = "black"));
+  gridCells.forEach((cell) => (cell.style.backgroundColor = "white"));
 }
 
 // Function to display Menu
@@ -111,7 +111,7 @@ paint(document.querySelector(".color").value);
 function colorSelector(color) {
   if (color === "rainbow")
     return `rgb(${generateRandomColor()},${generateRandomColor()},${generateRandomColor()})`;
-  else if (color === "black") return "black";
+  else if (color === "white") return "white";
   else return document.querySelector(".color").value;
 }
 
@@ -150,16 +150,16 @@ slider.addEventListener("mouseup", (e) => {
     if (e.target.classList.contains("grid-cell") && clicked) {
       if (eraserVal === 70) {
         e.target.previousElementSibling.style.backgroundColor =
-          colorSelector("black");
+          colorSelector("white");
         e.target.nextElementSibling.style.backgroundColor =
-          colorSelector("black");
-        e.target.style.backgroundColor = colorSelector("black");
+          colorSelector("white");
+        e.target.style.backgroundColor = colorSelector("white");
       } else if (eraserVal === 50) {
         e.target.previousElementSibling.style.backgroundColor =
-          colorSelector("black");
-        e.target.style.backgroundColor = colorSelector("black");
+          colorSelector("white");
+        e.target.style.backgroundColor = colorSelector("white");
       } else {
-        e.target.style.backgroundColor = colorSelector("black");
+        e.target.style.backgroundColor = colorSelector("white");
       }
     }
   });

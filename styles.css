@@ -6,7 +6,10 @@
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #060a0c, #172528, #060a0c);
+  background: linear-gradient(#8399a2, #eef2f3);
+
+  background-blend-mode: multiply;
+
   height: 100vh;
 
   display: grid;
@@ -38,25 +41,72 @@ a {
   justify-self: end;
   align-self: start;
   margin: 5px 8px 0 0;
-  color: #777;
+  color: rgb(162, 13, 13);
 }
 
 .close:hover {
-  color: #222;
+  color: rgb(0, 0, 0);
+}
+
+.phone {
+  width: 270px;
+  height: 490px;
+  border-radius: 16px;
+  border: 11px solid black;
+  position: relative;
+}
+
+.phone-btn {
+  width: 8px;
+  height: 32px;
+  background-color: black;
+  position: absolute;
+
+  border-radius: 6px;
+  z-index: -1;
+}
+
+.vol-up {
+  top: 22%;
+  left: -14px;
+}
+.vol-down {
+  top: 32%;
+  left: -14px;
+}
+
+.power {
+  top: 24%;
+  right: -14px;
+  height: 40px;
+}
+
+.camera {
+  height: 18px;
+  width: 18px;
+  background-color: #000;
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  transform: translate(-50%, -8px);
+  z-index: 10;
 }
 
 .container {
+  width: 100%;
+  height: 100%;
   position: relative;
   display: grid;
   justify-items: center;
 }
 
 .grid-container {
-  background-color: #000;
-  height: 60vh;
-  width: 60vw;
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
 
   display: grid;
 }
@@ -67,7 +117,7 @@ a {
   border-radius: 100px;
   background-color: hsl(0, 0%, 15%);
   position: absolute;
-  margin-top: 10px;
+  bottom: 10px;
 
   display: flex;
   justify-content: space-evenly;
@@ -75,12 +125,14 @@ a {
 }
 
 .brushes-container {
-  background-color: #fafafa;
+  background-color: #d0e2e7;
   width: 80%;
   height: 120px;
   position: absolute;
-  top: 120%;
+  bottom: 120%;
   border-radius: 5px;
+  overflow: hidden;
+
   display: none;
   align-items: end;
   justify-items: center;
@@ -89,6 +141,7 @@ a {
 
 .brushes-container svg {
   transform: rotate(135.03deg);
+  fill: rgb(57, 57, 57);
   cursor: pointer;
   transition: all 0.05s linear;
 }
@@ -113,10 +166,10 @@ a {
 }
 
 .eraser-container {
-  background-color: #fafafa;
+  background-color: #d0e2e7;
   width: 80%;
   position: absolute;
-  top: 120%;
+  bottom: 120%;
   border-radius: 5px;
   display: none;
   place-items: center;
@@ -192,6 +245,18 @@ input[type="color"]::-webkit-color-swatch {
   cursor: pointer;
 }
 
+.brush {
+  position: relative;
+}
+
+.eraser {
+  position: relative;
+}
+
+.color-picker {
+  position: relative;
+}
+
 .rainbow {
   position: relative;
 }
@@ -201,17 +266,59 @@ input[type="color"]::-webkit-color-swatch {
   width: 22px;
 }
 
-.rainbow-text {
-  transition: all 0.2s;
+.brush::after,
+.eraser::after,
+.rainbow::after,
+.clear::after,
+.color-picker::after {
   position: absolute;
   font-size: 10px;
+  width: 80px;
+  background-color: #8399a2;
+  top: -110%;
+  text-align: center;
+  padding: 2px 0;
+  left: -110%;
+  border-radius: 10px;
   color: #fff;
-  top: 50%;
-  transform: translateY(-50%);
-  right: -320%;
   opacity: 0;
+  transition: all 0.2s;
 }
 
-.rainbow:hover .rainbow-text {
+.brush::after {
+  content: "Select Brush";
+  top: -150%;
+  left: -150%;
+}
+
+.eraser::after {
+  content: "Eraser";
+  top: -150%;
+  left: -150%;
+}
+
+.rainbow::after {
+  content: "Random Color";
+}
+.color-picker::after {
+  content: "Select Color";
+  top: -70%;
+}
+
+.clear::after {
+  content: "Clear";
+  top: -144%;
+  left: -160%;
+}
+
+.brush:hover::after,
+.eraser:hover::after,
+.rainbow:hover::after,
+.clear:hover::after,
+.color-picker:hover::after {
   opacity: 1;
+}
+
+.clear {
+  position: relative;
 }
